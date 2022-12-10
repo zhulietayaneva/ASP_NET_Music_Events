@@ -1,0 +1,35 @@
+﻿@model AddArtistFormModel
+
+@{
+    ViewData["Title"] = "Add Artist";
+}
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-12 offset-md=3 col-md-6 offset-lg-2 col=lg-8 offset-xl-3 col-xl-6">
+            <h2 class="heading-margin" style="text-align:center">Add Artist</h2>
+
+            <form method="post">
+               
+                <partial name="_AddArtistsPartial"  model="@Model"/>
+                <div style="padding-top: 16px;">
+                    <input class="btn purple" type="submit" value="Add"/>
+                </div>
+                
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+    format: 'dd/MM/yyyy HH:mm',
+    startDate: '-10d'
+    });
+    </script>
+}

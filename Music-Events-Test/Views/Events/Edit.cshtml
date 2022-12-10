@@ -1,0 +1,114 @@
+﻿@model AddEventFormModel;
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<div class="container">
+     <div class="row">
+         <div class=" offset-md-2 col-md-8 col-sm-12">
+             <h2 class ="heading-margin text-center">Edit Event</h2>
+             <form  method="post" class="row g-3">
+
+                <div class="col-md-6">
+                 <label asp-for="EventName" class="form-label add-form">Event Name</label>
+                 <input asp-for="EventName" class="form-control" placeholder="Enter name here">
+                 <span asp-validation-for="EventName" class="small text-danger"></span>
+                </div>
+                  
+                <div class="col-md-6">
+                 <label asp-for="Venue" class="form-label add-form">Venue</label>
+                 <input asp-for="Venue" class="form-control" placeholder="Enter venue here">
+                 <span asp-validation-for="Venue" class="small text-danger"></span>
+                </div>
+                  
+                <div class="col-md-6">
+                 <label asp-for="ImgURL" class="form-label add-form">Image URL</label>
+                 <input asp-for="ImgURL" class="form-control" placeholder="Enter image URL here">
+                 <span asp-validation-for="ImgURL" class="small text-danger"></span>
+                </div>
+                
+                <div class="col-md-6">
+                 <label asp-for="Description" class="form-label add-form">Event Description</label>
+                 <textarea asp-for="Description" class="form-control" rows="5" placeholder="Enter description here"></textarea>
+                 <span asp-validation-for="Description" class="small text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                 <label asp-for="CountryId" class="form-label add-form">Country</label>
+                 <select asp-for="CountryId" id="CountryId" name="CountryId" class="form-control" asp-items="@(new SelectList(@Model.Countries, "Id", "CountryName"))"></select>
+                </div>    
+                
+                <div class="col-md-6">
+                 <label asp-for="CityId" class="form-label add-form">City</label>
+                 <select asp-for="CityId" id="CityId" name="CityId" class="form-control" asp-items="@(new SelectList(@Model.Cities, "Id", "CityName"))"></select>
+                </div>
+
+
+                <div class="col-md-6">
+                 <label asp-for="Time" class="form-label add-form">Choose Date</label>
+                 <input asp-for="Time" class="form-control" id="datetimepicker1">
+                 <span asp-validation-for="Time" class="small text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                 <label asp-for="ArtistId" class="form-label add-form" >Choose Artist</label>
+                 <select asp-for="ArtistId" id="optionAdd" onchange="getSelectedArtist()" class="form-select" aria-label="Select artist">
+                    @foreach (var artist in @Model.Artists)
+                    {
+                        <option value=@artist.Id>@artist.ArtistName</option>
+                    }
+                 </select>
+                </div>
+
+                <div class="col-12">
+                 <button type="submit" class="btn " style="background-color:#d1a9eb; box-shadow: 0px 4px 5px  rgba(0, 0, 0, 0.4); margin-right: 4px;">Submit</button>
+                </div>
+
+              </form>
+              
+            </div>
+                               
+        </div>
+ </div>
+@section Scripts{
+
+
+<script>
+  $(function () {
+    $('#datetimepicker1').datetimepicker({ 
+      format: 'YYYY-MM-DD HH:mm',
+      useCurrent: true,
+      
+    });
+  });
+</script>
+
+
+<script type="text/javascript"> 
+        $(document).ready(function () {
+
+          $("#CountryId").change(function () {
+
+             var url= '@Url.Content("~/")'+ "Events/GetCities";
+            
+             var ddlsource = "#CountryId";
+
+              $.getJSON(url, { CountryId: $(ddlsource).val() }, function (data) {
+
+                var items = '';
+                $("#CityId").empty();
+                $.each(data, function (i, city) {
+
+                    items += "<option value='" + city.value + "'>" + city.text + "</option>";
+                });
+                $('#CityId').html(items);
+        }); 
+          }); 
+             });
+
+</script> 
+
+
+
+ }
+

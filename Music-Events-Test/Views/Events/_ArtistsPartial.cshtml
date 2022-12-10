@@ -1,0 +1,25 @@
+﻿@model AddEventFormModel;
+
+<div class="row g-3">
+  <div class="col">
+    <input type="text" asp-for="Artists" class="form-control" placeholder="Artist name">
+  </div>
+
+  <div class="col">
+      <button type="button" class="btn btn-danger" onclick="{(ev) => remove(ev)}" id="btnRemove">-</button>
+  </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">    
+    
+           function remove(ev){
+            alert("aaaa");
+            var divToRemove = ev.target.parentNode.parentNode;
+            myDiv.removeChild(divToRemove);
+        }
+    
+</script>
+}  
+ 
