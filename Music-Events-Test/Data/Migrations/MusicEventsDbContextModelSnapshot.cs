@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicEvents.Data;
 
@@ -12,10 +11,9 @@ using MusicEvents.Data;
 namespace Music_Events_Test.Data.Migrations
 {
     [DbContext(typeof(MusicEventsDbContext))]
-    [Migration("20221210210316_Initial2")]
-    partial class Initial2
+    partial class MusicEventsDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

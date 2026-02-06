@@ -59,18 +59,18 @@ namespace MusicEvents.Infrastructure
 
             }
 
-            //List<Country> countries = countriesAndCities
-            //    .Select(c => new Country
-            //    {
-            //        CountryName = c.Name,
-            //        Cities = c.Cities.Select(city=> new City
-            //        {
-            //            CityName=city,
-                        
-                        
-            //        }).ToList(),
-            //    })
-            //    .ToList();
+            List<Country> countries = countriesAndCities
+                .Select(c => new Country
+                {
+                    CountryName = c.Name,
+                    Cities = c.Cities.Select(city => new City
+                    {
+                        CityName = city,
+
+
+                    }).ToList(),
+                })
+                .ToList();
 
             foreach (var country in countriesAndCities)
             {
@@ -89,30 +89,30 @@ namespace MusicEvents.Infrastructure
                 data.Cities.AddRange(cts);
                 data.SaveChanges();
             }
-          
-            //data.Countries.AddRange(countries);
-            //data.SaveChanges();
-            
 
-            //if (data.Cities.Any())
-            //{
-            //    return;
-            //}
-            //List<City> cities = new List<City>();
-            //foreach (var country in data.Countries)
-            //{ 
-            //    cities.Clear(); 
-            //    foreach (var city in country.Cities)
-            //    {
-                    
-                    
-            //        cities.Add(city);
-            //    }
-            //}
+            data.Countries.AddRange(countries);
+            data.SaveChanges();
 
 
-            //data.Cities.AddRange(cities);
-            //data.SaveChanges();
+            if (data.Cities.Any())
+            {
+                return;
+            }
+            List<City> cities = new List<City>();
+            foreach (var country in data.Countries)
+            {
+                cities.Clear();
+                foreach (var city in country.Cities)
+                {
+
+
+                    cities.Add(city);
+                }
+            }
+
+
+            data.Cities.AddRange(cities);
+            data.SaveChanges();
         }
         private static void SeedGenres(MusicEventsDbContext data)
         {
